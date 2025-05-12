@@ -14,8 +14,14 @@ export function load({ cookies }) {
 }
 
 export const actions = {
-	default: async ({ cookies, request }) => {
+	create: async ({ cookies, request }) => {
 		const data = await request.formData();
 		db.createTodo(cookies.get('userid'), data.get('description'));
+	},
+	
+
+	delete: async ({ cookies, request }) => {
+		const data = await request.formData();
+		db.createTodo(cookies.get('userid'), data.get('id'));
 	}
 };

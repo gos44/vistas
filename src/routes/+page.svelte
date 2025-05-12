@@ -20,7 +20,7 @@
 <div class="centered">
 	<h1>todos</h1>
 
-	<form method="POST">
+	<form method="POST" action="?/create">
 		<label>
 			add a todo:
 			<input
@@ -34,6 +34,11 @@
 		{#each data.todos as todo (todo.id)}
 			<li>
 				{todo.description}
+                <form method="POST" action="?/delete">
+                    <input type="hidden" name="id" value={todo.id} />
+				<span>{todo.description}</span>
+				<button aria-label="Mark as complete"></button>
+			</form>
 			</li>
 		{/each}
 	</ul>
