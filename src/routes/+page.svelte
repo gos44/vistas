@@ -1,31 +1,22 @@
 <script>
-	let { data } = $props();
-    import { message } from '$lib/message.js';
-
+	let { data, form } = $props();
 </script>
 
-<h1>home</h1>
-<p>this is the home page.</p>
-
-<h1>Hello a {data.visited ? 'friend' : 'stranger'}!</h1>
-<br>
-<br>
-
-<!-- Módulos compartidos -->
-<h1>home</h1>
-<p>{message}</p>
-<!--  -->
-
-<!-- The <form> element -->
 <div class="centered">
 	<h1>todos</h1>
+
+	{#if form?.error}
+		<p class="error">{form.error}</p>
+	{/if}
 
 	<form method="POST" action="?/create">
 		<label>
 			add a todo:
 			<input
 				name="description"
+				value={form?.description ?? ''}
 				autocomplete="off"
+				required
 			/>
 		</label>
 	</form>
@@ -33,12 +24,11 @@
 	<ul class="todos">
 		{#each data.todos as todo (todo.id)}
 			<li>
-				{todo.description}
-                <form method="POST" action="?/delete">
-                    <input type="hidden" name="id" value={todo.id} />
-				<span>{todo.description}</span>
-				<button aria-label="Mark as complete"></button>
-			</form>
+				<form method="POST" action="?/delete">
+					<input type="hidden" name="id" value={todo.id} />
+					<span>{todo.description}</span>
+					<button aria-label="Mark as complete"></button>
+				</form>
 			</li>
 		{/each}
 	</ul>
